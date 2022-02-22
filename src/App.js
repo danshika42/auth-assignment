@@ -35,7 +35,8 @@ function App() {
           const errorMessage = error.message;
           const email = error.email;
           const credential = FacebookAuthProvider.credentialFromError(error);
-          console.log(error);
+          alert(error.message);
+          console.log(error.message)
         });
   }
   return (
