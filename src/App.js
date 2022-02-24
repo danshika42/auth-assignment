@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import './App.css'
 import { auth } from './firebase';
 import { GoogleAuthProvider, signInWithPopup ,FacebookAuthProvider } from 'firebase/auth';
 function App() {
@@ -6,8 +7,6 @@ function App() {
   const [googleEmail,setEmail]=useState('');
   const [googlePhotoSrc,setPhotoSrc]=useState('');
   const [fbName,setFbName]=useState('');
-  const [fbEmail,setFbEmail]=useState('');
-  const [fbPhotoSrc,setFbPhotoSrc]=useState('');
 
   const signInWithGoogle=()=>{
     const google_provider=new GoogleAuthProvider();
@@ -27,8 +26,6 @@ function App() {
       signInWithPopup(auth, facebook_provider)
         .then((result) => {
           setFbName(result.user.displayName);
-          setFbEmail(result.user.email);
-          setFbPhotoSrc(result.user.photoURL);
           console.log(result)
         })
         .catch((error) => {
@@ -38,14 +35,12 @@ function App() {
   }
   return (
     <div className="App">
-      <button onClick={signInWithGoogle}>Sign with google</button>
+      <button onClick={signInWithGoogle}>Sign in with google</button>
       <p>{googleName}</p>
       <p>{googleEmail}</p>
       <img src={googlePhotoSrc} />
-      <button onClick={signInWithFacebook}>Sign with facebook</button>
+      <button onClick={signInWithFacebook}>Sign in with facebook</button>
       <p>{fbName}</p>
-      <p>{fbEmail}</p>
-      <img src={fbPhotoSrc} />
     </div>
   );
 }
