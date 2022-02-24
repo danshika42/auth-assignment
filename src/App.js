@@ -38,7 +38,7 @@ function App() {
       <button onClick={signInWithGoogle}>Sign in with google</button>
       <p>{googleName}</p>
       <p>{googleEmail}</p>
-      <img src={googlePhotoSrc} />
+      <img src={googlePhotoSrc} /><br></br>
       <button onClick={signInWithFacebook}>Sign in with facebook</button>
       <p>{fbName}</p>
     </div>
