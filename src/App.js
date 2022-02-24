@@ -1,13 +1,13 @@
-import './App.css';
 import React,{useState} from 'react';
 import { auth } from './firebase';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { FacebookAuthProvider } from "firebase/auth";
-
+import { GoogleAuthProvider, signInWithPopup ,FacebookAuthProvider } from 'firebase/auth';
 function App() {
-  const [name,setName]=useState('');
-  const [email,setEmail]=useState('');
-  const [photoSrc,setPhotoSrc]=useState('');
+  const [googleName,setName]=useState('');
+  const [googleEmail,setEmail]=useState('');
+  const [googlePhotoSrc,setPhotoSrc]=useState('');
+  const [fbName,setFbName]=useState('');
+  const [fbEmail,setFbEmail]=useState('');
+  const [fbPhotoSrc,setFbPhotoSrc]=useState('');
 
   const signInWithGoogle=()=>{
     const google_provider=new GoogleAuthProvider();
@@ -16,6 +16,7 @@ function App() {
       setName(res.user.displayName);
       setEmail(res.user.email);
       setPhotoSrc(res.user.photoURL);
+      console.log(res);
     }).catch((error)=>{
       console.log(error.message)
     }); 
@@ -25,16 +26,12 @@ function App() {
       const facebook_provider = new FacebookAuthProvider();
       signInWithPopup(auth, facebook_provider)
         .then((result) => {
-          const user = result.user;
-          const credential = FacebookAuthProvider.credentialFromResult(result);
-          const accessToken = credential.accessToken;
+          setFbName(result.user.displayName);
+          setFbEmail(result.user.email);
+          setFbPhotoSrc(result.user.photoURL);
           console.log(result)
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          const email = error.email;
-          const credential = FacebookAuthProvider.credentialFromError(error);
           alert(error.message);
           console.log(error.message)
         });
@@ -42,10 +39,13 @@ function App() {
   return (
     <div className="App">
       <button onClick={signInWithGoogle}>Sign with google</button>
-      <p>{name}</p>
-      <p>{email}</p>
-      <img src={photoSrc} />
+      <p>{googleName}</p>
+      <p>{googleEmail}</p>
+      <img src={googlePhotoSrc} />
       <button onClick={signInWithFacebook}>Sign with facebook</button>
+      <p>{fbName}</p>
+      <p>{fbEmail}</p>
+      <img src={fbPhotoSrc} />
     </div>
   );
 }
